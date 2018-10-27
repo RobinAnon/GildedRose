@@ -19,7 +19,6 @@ public class Inventory {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
                 new Item("Conjured Mana Cake", 3, 6)
         };
-
     }
 
     public void printInventory() {
@@ -39,6 +38,9 @@ public class Inventory {
                     if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
                         items[i].setQuality(items[i].getQuality() - 1);
                     }
+                }
+                if (items[i].getQuality() > 0 && items[i].getName() == "Conjured Mana Cake") {
+                    items[i].setQuality(items[i].getQuality() - 1);
                 }
             } else {
                 if (items[i].getQuality() < 50) {
@@ -71,6 +73,9 @@ public class Inventory {
                             if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
                                 items[i].setQuality(items[i].getQuality() - 1);
                             }
+                        }
+                        if (items[i].getQuality() > 0 && items[i].getName() == "Conjured Mana Cake") {
+                            items[i].setQuality(items[i].getQuality() - 1);
                         }
                     } else {
                         items[i].setQuality(items[i].getQuality() - items[i].getQuality());
