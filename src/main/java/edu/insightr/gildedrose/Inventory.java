@@ -21,6 +21,10 @@ public class Inventory {
         };
     }
 
+    public Item[] getItems() {
+        return this.items;
+    }
+
     public void printInventory() {
         System.out.println("***************");
         for (Item item : items) {
@@ -88,6 +92,17 @@ public class Inventory {
             }
         }
     }
+
+    //1- add to github and add a tag
+    //2- create a branch named "visitor"
+    //3- use the visitor pattern
+
+    /* Visitor myVisitor = new Visitor();
+    public void superUpdate() {
+        for (Item item : items) {
+            item.accept(myVisitor);
+        }
+    } */
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
