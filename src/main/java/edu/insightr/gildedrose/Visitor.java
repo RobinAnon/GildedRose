@@ -1,61 +1,35 @@
 package edu.insightr.gildedrose;
 
 public class Visitor {
+    private IStrategy strategy;
     
     public void visit(Item item) {
-        if (item.getName() != "Aged Brie"
-                && item.getName() != "Backstage passes to a TAFKAL80ETC concert") {
-            if (item.getQuality() > 0) {
-                if (item.getName() != "Sulfuras, Hand of Ragnaros") {
-                    item.setQuality(item.getQuality() - 1);
-                }
-            }
-            if (item.getQuality() > 0 && item.getName() == "Conjured Mana Cake") {
-                item.setQuality(item.getQuality() - 1);
-            }
-        } else {
-            if (item.getQuality() < 50) {
-                item.setQuality(item.getQuality() + 1);
+        setStrategy(item);
+        strategy.updateQuality(item);
+    }
 
-                if (item.getName() == "Backstage passes to a TAFKAL80ETC concert") {
-                    if (item.getSellIn() < 11) {
-                        if (item.getQuality() < 50) {
-                            item.setQuality(item.getQuality() + 1);
-                        }
-                    }
-
-                    if (item.getSellIn() < 6) {
-                        if (item.getQuality() < 50) {
-                            item.setQuality(item.getQuality() + 1);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (item.getName() != "Sulfuras, Hand of Ragnaros") {
-            item.setSellIn(item.getSellIn() - 1);
-        }
-
-        if (item.getSellIn() < 0) {
-            if (item.getName() != "Aged Brie") {
-                if (item.getName() != "Backstage passes to a TAFKAL80ETC concert") {
-                    if (item.getQuality() > 0) {
-                        if (item.getName() != "Sulfuras, Hand of Ragnaros") {
-                            item.setQuality(item.getQuality() - 1);
-                        }
-                    }
-                    if (item.getQuality() > 0 && item.getName() == "Conjured Mana Cake") {
-                        item.setQuality(item.getQuality() - 1);
-                    }
-                } else {
-                    item.setQuality(item.getQuality() - item.getQuality());
-                }
-            } else {
-                if (item.getQuality() < 50) {
-                    item.setQuality(item.getQuality() + 1);
-                }
-            }
+    private void setStrategy(Item item) {
+        switch (item.getName()) {
+            case "+5 Dexterity Vest":
+                strategy = new VestStrategy();
+                break;
+            case "Aged Brie":
+                strategy = new BrieStrategy();
+                break;
+            case "Elixir of the Mongoose":
+                strategy = new ElixirStrategy();
+                break;
+            case "Sulfuras, Hand of Ragnaros":
+                strategy = new SulfurasStrategy();
+                break;
+            case "Conjured Mana Cake":
+                strategy = new ConjuredStrategy();
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
+                strategy = new BackstagesStrategy();
+                break;
+            default:
+                strategy = new VestStrategy();
         }
     }
 }
