@@ -40,5 +40,4 @@ public class Inventory {
             item.accept(visitor);
         }
     }
-
 }
