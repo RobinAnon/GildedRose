@@ -9,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,9 +50,29 @@ public class Main extends Application {
         Button updateButton = new Button("Update");
         updateButton.setOnAction(e -> updateButtonClicked());
 
+        Button addButton = new Button("Add");
+        Button removeButton = new Button("Remove");
+
+        ComboBox combo= new ComboBox<String>();
+        combo.getItems().addAll(
+                "+5 Dexterity Vest",
+                "Aged Brie","Elixir of the Mongoose",
+                "Sulfuras, Hand of Ragnaros",
+                "Backstage passes to a TAFKAL80ETC concert",
+                "Conjured Mana Cake");
+        combo.setPromptText("What item add ?");
+
+        TextField sellInInput= new TextField();
+        TextField qualityInput= new TextField();
+        sellInInput.setPromptText("sell in");
+        qualityInput.setPromptText("quality");
+
+        addButton.setOnAction(e -> addButtonClicked(combo,sellInInput,qualityInput));
+        removeButton.setOnAction(e -> removeButtonClicked());
+
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 10, 10, 10));
-        hbox.getChildren().add(updateButton);
+        hbox.getChildren().addAll(updateButton, addButton, removeButton, sellInInput, qualityInput);
 
 
         table = new TableView<>();
@@ -58,8 +80,7 @@ public class Main extends Application {
         table.getColumns().addAll(nameColumn, sellinColumn, qualityColumn);
 
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(table, hbox);
-        vbox.getChildren().addAll(chart);
+        vbox.getChildren().addAll(table, hbox, combo, chart);
         updatePieChart();
 
         Scene scene = new Scene(vbox);
@@ -101,6 +122,23 @@ public class Main extends Application {
 
     }
 
+    public void addButtonClicked(ComboBox<String> combo, TextField sellInInput, TextField qualityInput)
+    {
+        inventaire.AddItem(combo.getValue(),Integer.parseInt(sellInInput.getText()), Integer.parseInt(qualityInput.getText()));
+        table.setItems(FXCollections.observableArrayList(inventaire.getItems()));
+        updatePieChart();
+        table.refresh();
+    }
+
+    public void removeButtonClicked()
+    {
+        ObservableList<Item> itemSelected = table.getSelectionModel().getSelectedItems();
+        inventaire.RemoveItem(itemSelected.get(0));
+
+        table.setItems(FXCollections.observableArrayList(inventaire.getItems()));
+        updatePieChart();
+        table.refresh();
+    }
 
     public static void main(String[] args) {
         launch(args);

@@ -40,4 +40,54 @@ public class Inventory {
             item.accept(visitor);
         }
     }
+
+    public void AddItem(String item, int sellin, int quality)
+    {
+        try
+        {
+            if(items==null)
+            {
+                items = new Item[]{
+                        new Item(item,sellin,quality)
+                };
+            }
+            else
+            {
+                Item tabItem[]=new Item[items.length+1];
+                for (int i=0; i<items.length;i++)
+                {
+                    tabItem[i]=items[i];
+                }
+                tabItem[items.length]=new Item(item,sellin,quality);
+                items=tabItem;
+            }
+        }
+        catch (Exception e){}
+    }
+
+    public void RemoveItem(Item i)
+    {
+        Item tabItem[]=new Item[items.length-1];
+        int indice_i=-1;
+        for (int k=0; k<items.length;k++)
+        {
+            if(i!=items[k])
+            {
+                tabItem[k]=items[k];
+            }
+            else
+            {
+                indice_i=k;
+                k=items.length;
+            }
+        }
+        if(indice_i!=-1)
+        {
+            for(int k=indice_i;k<items.length-1;k++)
+            {
+                tabItem[k]=items[k+1];
+            }
+            items=tabItem;
+        }
+    }
 }
