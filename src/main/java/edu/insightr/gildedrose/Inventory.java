@@ -89,10 +89,5 @@ public class Inventory {
             }
             items=tabItem;
         }
-
-    }
-
-
-
-
+	}
 }
