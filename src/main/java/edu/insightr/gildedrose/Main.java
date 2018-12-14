@@ -50,6 +50,9 @@ public class Main extends Application {
         Button updateButton = new Button("Update");
         updateButton.setOnAction(e -> updateButtonClicked());
 
+        Button importButton = new Button("Import");
+        importButton.setOnAction(e -> importButtonClicked());
+
         Button addButton = new Button("Add");
         Button removeButton = new Button("Remove");
 
@@ -86,7 +89,7 @@ public class Main extends Application {
 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 10, 10, 10));
-        hbox.getChildren().addAll(updateButton, addButton, removeButton, sellInInput, qualityInput,datePicker,barChartDateButton,barChartSellIn, barChartNumberOfBuy,barChartNumberOfSell);
+        hbox.getChildren().addAll(importButton, updateButton, addButton, removeButton, sellInInput, qualityInput,datePicker,barChartDateButton,barChartSellIn, barChartNumberOfBuy,barChartNumberOfSell);
 
         table = new TableView<>();
         table.setItems(FXCollections.observableArrayList(inventaire.getItems()));
@@ -101,6 +104,15 @@ public class Main extends Application {
         window.setScene(scene);
 
         window.show();
+    }
+
+    private void importButtonClicked() {
+        Item[] inv = JSONReaderClass.readJSON("D:\\ESILV\\Matieres\\Semestre_7\\Design Pattern\\json_invntory.json");
+        int taille = inv.length;
+        for (int i = 0; i < taille; i++) {
+            inventaire.AddItem(inv[i]);
+        }
+        table.refresh();
     }
 
     public void updateButtonClicked(){
