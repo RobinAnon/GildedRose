@@ -2,15 +2,17 @@ package edu.insightr.gildedrose;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryTest {
 
-    private Item vest = new Item("+5 Dexterity Vest", 0, 0);
-    private Item agedBrie =  new Item("Aged Brie", 0, 0);
-    private Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 0);
-    private Item passes = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0);
-    private Item conjured = new Item("Conjured Mana Cake", 0, 0);
+    private Item vest = new Item("+5 Dexterity Vest", 0, 0, LocalDate.of(2018,12,12));
+    private Item agedBrie =  new Item("Aged Brie", 0, 0, LocalDate.of(2018,12,12));
+    private Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 0, LocalDate.of(2018,12,12));
+    private Item passes = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0, LocalDate.of(2018,12,12));
+    private Item conjured = new Item("Conjured Mana Cake", 0, 0, LocalDate.of(2018,12,12));
     private Inventory testInventory = new Inventory(new Item[] {
             vest, agedBrie, sulfuras, passes, conjured
     });
